@@ -1,0 +1,52 @@
+import random
+import time
+
+play_again = "y"
+
+while play_again.lower() == "y":
+
+    print("TWO PLAYER TURN BASED GUESSING GAME")
+
+    secret = random.randint(1, 100)
+    attempts = 0
+    current_player = 1
+
+    start_time = time.time()
+
+    while True:
+        guess = int(input(f"Player {current_player}, enter your guess: "))
+        attempts += 1
+
+        diff = abs(secret - guess)
+
+        if guess == secret:
+            end_time = time.time()
+            time_taken = round(end_time - start_time, 2)
+
+            print("Correct!")
+            print(f"Player {current_player} wins.")
+            print(f"Total attempts: {attempts}")
+            print(f"Time taken: {time_taken} seconds")
+            break
+
+        if diff <= 5:
+            print("Very close (within 5).")
+        elif diff <= 10:
+            print("Close (within 10).")
+        else:
+            print("Far away (greater than 10).")
+
+        if guess > secret:
+            print("Your guess is HIGH.")
+        else:
+            print("Your guess is LOW.")
+
+        # Switch player
+        if current_player == 1:
+            current_player = 2
+        else:
+            current_player = 1
+
+    play_again = input("Do you want to play again? (Y/N): ")
+
+print("Thanks for playing!")
